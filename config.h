@@ -203,11 +203,13 @@ static char *openurlcmd[] = { "/bin/sh", "-c",
 static char *copyurlcmd[] = { "/bin/sh", "-c",
     "sed 's/.*│//g' | tr -d '\n' | grep -aEo '(((http|https)://|www\\.)[a-zA-Z0-9.]*[:]?[a-zA-Z0-9./&%?#=_-]*)|((magnet:\\?xt=urn:btih:)[a-zA-Z0-9]*)' | uniq | sed 's/^www./http:\\/\\/www\\./g' | dmenu -i -p 'Copy which url?' -l 10 | tr -d '\n' | xclip -selection clipboard",
     "externalpipe", NULL };
+static char *copyoutcmd[] = { "/bin/fish", "-c","/home/zxing/scripts/st-copyout.sh", NULL };
 
 static Shortcut shortcuts[] = {
 	/* mask                 keysym          function        argument */
-	{ Mod1Mask|ControlMask, XK_minus,           externalpipe,   {.v = openurlcmd } },
-	{ Mod1Mask|ControlMask, XK_equal,           externalpipe,   {.v = copyurlcmd } },
+	{ Mod1Mask|ControlMask, XK_l,       	externalpipe,   {.v = openurlcmd } },
+	{ Mod1Mask|ControlMask, XK_minus,       externalpipe,   {.v = copyurlcmd } },
+	{ Mod1Mask|ControlMask, XK_equal,       externalpipe,   {.v = copyoutcmd } },
 	{ XK_ANY_MOD,           XK_Break,       sendbreak,      {.i =  0} },
 	{ ControlMask,          XK_Print,       toggleprinter,  {.i =  0} },
 	{ ShiftMask,            XK_Print,       printscreen,    {.i =  0} },
@@ -215,8 +217,8 @@ static Shortcut shortcuts[] = {
 	{ TERMMOD,              XK_Prior,       zoom,           {.f = +1} },
 	{ TERMMOD,              XK_Next,        zoom,           {.f = -1} },
 	{ TERMMOD,              XK_Home,        zoomreset,      {.f =  0} },
-	{ Mod4Mask,          XK_c,           clipcopy,       {.i =  0} },
-	{ Mod4Mask,          XK_v,           clippaste,      {.i =  0} },
+	{ Mod4Mask,          	XK_c,           clipcopy,       {.i =  0} },
+	{ Mod4Mask,          	XK_v,           clippaste,      {.i =  0} },
 	{ TERMMOD,              XK_Y,           selpaste,       {.i =  0} },
 	{ ShiftMask,            XK_Insert,      selpaste,       {.i =  0} },
 	{ TERMMOD,              XK_Num_Lock,    numlock,        {.i =  0} },
